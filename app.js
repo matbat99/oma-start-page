@@ -2,13 +2,30 @@ console.log('testing omas garten')
 
 // get the local news
 
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+
 const url = 'http://newsapi.org/v2/top-headlines?' +
 	'country=at&' +
 	'apiKey=37a11a0f5c3b46ff84712ac8f3ae0c9f'
-	fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-	.then(response => response.text())
-	.then(contents => console.log(contents))
-	.catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+async function jimmy() {
+	let news
+	const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
+	 .then(response => response.json())
+	 .then(data => { 
+		//  console.log(JSON.parse(data.contents).articles)
+			news = JSON.parse(data.contents).articles
+	 }
+	 )
+	 return news
+}
 
-	
+
+async function returnArticles() {
+	const bob = await jimmy()
+	console.log(bob)
+}
+
+const articles = returnArticles()
+console.log(articles)
+
+console.log(articles.length)
